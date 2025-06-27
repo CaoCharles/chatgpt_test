@@ -1,24 +1,29 @@
 import argparse
+import os
 import google.generativeai as genai
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Gemini 2.5 Pro Chatbot")
-    parser.add_argument('--api-key', required=True, help='Gemini API key')
-    args = parser.parse_args()
-
-    genai.configure(api_key=args.api_key)
-    model = genai.GenerativeModel('gemini-1.5-pro')
+def run_chat(api_key: str):
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-1.5-pro")
     chat = model.start_chat(history=[])
-
-    print("Gemini Chatbot. Type 'exit' to quit.")
+    print("Gemini Chatbot. 輸入 'exit' 離開。")
     while True:
-        user_input = input('You: ')
-        if user_input.strip().lower() == 'exit':
+        user_input = input("You: ")
+        if user_input.strip().lower() == "exit":
             break
-        response = chat.send_message(user_input)
-        print('Gemini: ' + response.text)
+        resp = chat.send_message(user_input)
+        print("Gemini: " + resp.text)
 
 
-if __name__ == '__main__':
+def main():
+    parser = argparse.ArgumentParser(description="Gemini 2.5 Pro 聊天機器人")
+    parser.add_argument("--api-key", help="Gemini API 金鑰，預設讀取環境變數", default=os.getenv("GEMINI_API_KEY"))
+    args = parser.parse_args()
+    if not args.api_key:
+        raise SystemExit("請提供 GEMINI API 金鑰。")
+    run_chat(args.api_key)
+
+
+if __name__ == "__main__":
     main()
