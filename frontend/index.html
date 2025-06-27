@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gemini Chatbot</title>
+  <style>
+    body { font-family: sans-serif; }
+    #history { height: 200px; overflow-y: scroll; border: 1px solid #ccc; padding: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Gemini 聊天機器人</h1>
+  <div id="history"></div>
+  <div>
+    <label for="dbSelect">資料庫:</label>
+    <select id="dbSelect"></select>
+  </div>
+  <input type="text" id="question" placeholder="請輸入問題...">
+  <button onclick="sendMessage()">送出</button>
+  <input type="text" id="suggested" placeholder="建議提問" readonly>
+  <script>
+    const API = 'http://localhost:8000';
+    async function loadDatabases() {
+      const res = await fetch(`${API}/databases`);
+      const data = await res.json();
+      const select = document.getElementById('dbSelect');
+      select.innerHTML = '<option value="">(預設)</option>';
+      data.databases.forEach(db => {
+        const option = document.createElement('option');
+        option.value = db;
+        option.textContent = db;
+        select.appendChild(option);
+      });
+    }
+    async function loadHistory() {
+      const res = await fetch(`${API}/history`);
+      const data = await res.json();
+      const history = document.getElementById('history');
+      history.innerHTML = '';
+      data.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = `你: ${item.user}\nGemini: ${item.bot}`;
+        history.appendChild(div);
+      });
+    }
+    async function sendMessage() {
+      const q = document.getElementById('question').value;
+      const db = document.getElementById('dbSelect').value;
+      const res = await fetch(`${API}/chat`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({message: q, database: db || null})
+      });
+      const data = await res.json();
+      document.getElementById('question').value = '';
+      document.getElementById('suggested').value = data.reply;
+      loadHistory();
+    }
+    loadDatabases();
+    loadHistory();
+  </script>
+</body>
+</html>
