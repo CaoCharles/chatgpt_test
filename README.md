@@ -1,18 +1,29 @@
 # Gemini Chatbot
 
-This repository provides a small example of how to interact with the Gemini 2.5 Pro model using Python.
+This repository demonstrates a small Gemini chatbot with a separated
+frontend and backend.  The backend uses FastAPI and connects to MongoDB
+through a placeholder **MCP** search to provide RAG context for the
+Gemini API.  The frontend is a web page that displays conversation
+history, suggests follow-up questions and lets you choose which database
+collection to query.
 
 ## Requirements
 
 - Python 3.11 or later
-- `google-generativeai` package (install with `pip install google-generativeai`)
+- `fastapi`, `uvicorn`, `pymongo`, `google-generativeai`
+- A running MongoDB server
 
-## Usage
+## Running
 
-Run the chatbot and provide your API key:
+Install the dependencies and start the backend:
 
 ```bash
-python gemini_chatbot.py --api-key YOUR_API_KEY
+pip install fastapi uvicorn pymongo google-generativeai
+export GEMINI_API_KEY=YOUR_API_KEY
+export MONGO_URI="mongodb://localhost:27017"
+uvicorn backend.main:app --reload
 ```
 
-Type your messages after the prompt. Enter `exit` to quit the program.
+Open `frontend/index.html` in your browser. The page communicates with
+`http://localhost:8000` to send messages, view history and select a
+database.
