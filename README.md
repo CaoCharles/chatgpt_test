@@ -1,11 +1,12 @@
-# Personal Portfolio Website
+# Tech Portfolio
 
-This repository contains a simple static website that can be hosted on GitHub Pages. The site includes:
+This project is a minimal Next.js site designed for deployment on GitHub Pages or Vercel. It features a futuristic look with gradient backgrounds and glassmorphism.
 
-- **Home page** (`index.html`)
-- **Biography page with an AI assistant** (`about.html`)
-- **Technical articles** (`blog.html`)
+## Pages
+- **Home**: introduction with an AI assistant that can answer questions about the biography stored in `public/bio.json`.
+- **Blog**: lists Markdown articles from the `posts` folder. Each post contains frontmatter metadata.
+- **Certifications**: placeholder for certificates.
+- **About**: personal biography.
+- **Timeline**: simple chronological timeline.
 
-To enable the AI assistant, you need an OpenAI API key. When you first ask a question on the biography page, the browser will prompt you for your API key and store it in `localStorage`.
-
-Just push these files to a GitHub repository and enable GitHub Pages.
+To enable the AI assistant, provide an OpenAI API key when prompted. The key is stored in `localStorage` in the browser.
