@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   background: linear-gradient(135deg, #111827, #1f2937);
   color: #fff;
   min-height: 100vh;
@@ -12,7 +12,7 @@ body {
 }
 .header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.1);
@@ -20,13 +20,19 @@ body {
   padding: 1rem;
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
 }
-.header nav {
-  margin-top: 0.5rem;
-}
 .header nav a {
   margin: 0 0.5rem;
   color: #a5f3fc;
   text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.header nav a:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+main {
+  margin-top: 2rem;
 }
 .card {
   background: rgba(255, 255, 255, 0.1);

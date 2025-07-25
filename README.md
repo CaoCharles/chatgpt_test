@@ -10,3 +10,7 @@ This project is a minimal Next.js site designed for deployment on GitHub Pages o
 - **Timeline**: simple chronological timeline.
 
 To enable the AI assistant, provide an OpenAI API key when prompted. The key is stored in `localStorage` in the browser.
+
+### Deploying to GitHub Pages
+
+Run `npm run export` to generate the static files in the `out` directory and push them to the repository's `gh-pages` branch or GitHub Pages folder.

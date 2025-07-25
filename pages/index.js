@@ -7,7 +7,7 @@ export default function Home() {
   const [key, setKey] = useState('');
 
   useEffect(() => {
-    fetch('/bio.json').then(r => r.json()).then(setBio);
+    fetch('bio.json').then(r => r.json()).then(setBio);
   }, []);
 
   const ask = async () => {
